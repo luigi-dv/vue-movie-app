@@ -8,10 +8,12 @@
           </div>
           <div class="mt-20">
             <div>
-              <a href="#" class="inline-flex space-x-4">
-                <span class="rounded bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-600 tracking-wide uppercase"> What's new </span>
+              <a :href="commit.html_url" class="inline-flex space-x-4">
+                <span class="rounded bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-600 tracking-wide uppercase"> Last commit </span>
                 <span class="inline-flex items-center text-sm font-medium text-green-600 space-x-1">
-                  <span>Just shipped version 0.1.0</span>
+                  <span>
+                    {{ $filters.str_limit(commit.sha, 20) }}
+                  </span>
                   <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
                 </span>
               </a>
@@ -20,15 +22,15 @@
               <h1 class="text-4xl font-extrabold text-gray-900 dark:text-gray-50 tracking-tight sm:text-5xl">The Movie App that fits for anyone</h1>
               <p class="mt-6 text-xl text-gray-500 dark:text-gray-400">Vue Movies API is an application based on VueJS that collects information directly from an API.</p>
             </div>
-            <form action="#" class="mt-12 sm:max-w-lg sm:w-full sm:flex">
+            <!--<form action="#" class="mt-12 sm:max-w-lg sm:w-full sm:flex">
               <div class="min-w-0 flex-1">
                 <label for="hero-email" class="sr-only">Email address</label>
                 <input id="hero-email" type="email" class="block w-full border border-gray-300 dark:border-gray-600 rounded-md px-5 py-3 text-base text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 placeholder-gray-500 dark:placeholder-gray-400 shadow-sm focus:border-green-500 focus:ring-green-500" placeholder="Enter your email" />
               </div>
               <div class="mt-4 sm:mt-0 sm:ml-3">
-                <button type="submit" class="block w-full rounded-md border border-transparent px-5 py-3 bg-green-600 text-base font-medium text-white shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:px-10">Notify me</button>
+                <button type="submit" class="block w-full rounded-md border border-transparent px-5 py-3 bg-green-600 text-base font-medium text-white shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:px-10">Contact</button>
               </div>
-            </form>
+            </form>-->
             <div class="mt-6">
               <div class="inline-flex items-center divide-x divide-gray-300">
                 <div class="flex-shrink-0 flex pr-5">
@@ -38,7 +40,7 @@
                   <StarIcon class="h-5 w-5 text-yellow-400" aria-hidden="true" />
                   <StarIcon class="h-5 w-5 text-yellow-400" aria-hidden="true" />
                 </div>
-                <div class="min-w-0 flex-1 pl-5 py-1 text-sm text-gray-500 sm:py-3"><span class="font-medium text-gray-900 dark:text-gray-100">Rated 5 stars</span> by over <span class="font-medium text-green-600">500 beta users</span></div>
+                <div class="min-w-0 flex-1 pl-5 py-1 text-sm text-gray-500 sm:py-3"><span class="font-medium text-gray-900 dark:text-gray-100">Rated 5 stars</span> by over <span class="font-medium text-green-600">50 users</span></div>
               </div>
             </div>
           </div>
@@ -69,6 +71,15 @@
 <script>
 import { ChevronRightIcon, StarIcon, FilmIcon } from '@heroicons/vue/outline'
 import HeroIcon from './icons/HeroIcon.vue'
+/**
+ * VueJS
+ */
+import { onMounted } from 'vue'
+/**
+ * Stores
+ *  Movie [Main Store in View]
+ */
+import { useRepositoryStore } from "../stores/repository";
 
 export default {
   components: {
@@ -77,5 +88,21 @@ export default {
     FilmIcon,
     HeroIcon
   },
+  setup() {
+    const storeRepository = useRepositoryStore();
+    const { fetchCommit } = useRepositoryStore();
+
+    onMounted(() => {
+      fetchCommit();
+    });
+
+    return {
+      storeRepository
+    }
+  },
+  computed: {
+    commit() { return this.storeRepository.getMasterCommit; }
+  },
+
 }
 </script>

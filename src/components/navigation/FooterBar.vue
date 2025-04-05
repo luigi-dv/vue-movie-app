@@ -3,8 +3,8 @@
     <!--Regular Footer-->
     <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
       <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
-        <div v-for="item in navigation.main" :key="item.name" class="px-5 py-2 text-gray-500 hover:text-green-600">
-          <router-link active-class="text-green-600 hover:text-green-700" :to="item.href" class="text-sm capitalize">
+        <div v-for="item in navigation.main" :key="item.name" class="px-5 py-2 text-gray-500 hover:text-emerald-600">
+          <router-link active-class="text-emerald-600 hover:text-emerald-700" :to="item.href" class="text-sm capitalize">
             {{ item.name }}
           </router-link>
         </div>
@@ -17,7 +17,7 @@
       </div>
       <p class="mt-8 text-center text-xs text-gray-400">
         The Movie App | Powered by
-        <a class="hover:text-green-600" :href="navigation.poweredBy.link" :title="navigation.poweredBy.name">
+        <a class="hover:text-emerald-600" :href="navigation.poweredBy.link" :title="navigation.poweredBy.name">
           @{{  navigation.poweredBy.username  }}
         </a>.
       </p>
@@ -25,7 +25,7 @@
     <!--Mobile Navigation-->
     <div class="hidden bg-gray-100 dark:bg-gray-700 fixed z-50 bottom-0 w-full border-t border-gray-200
       dark:border-gray-800 shadow-2xl flex justify-center h-18 text-gray-900 dark:text-gray-200">
-      <router-link v-for="item in navigation.main" :key="item.name" active-class="text-green-600 hover:text-green-700" :to="item.href"
+      <router-link v-for="item in navigation.main" :key="item.name" active-class="text-emerald-600 hover:text-emerald-700" :to="item.href"
                     class="flex flex-grow items-center justify-center p-2">
         <div class="text-center">
             <span class="flex justify-center h-6 text-3xl leading-8">

@@ -5,7 +5,7 @@ export default {
 }
 </script>
 <template>
-  <div class="max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 md:shadow-2xl md:border md:border-t-0 md:border-b-0 border-gray-200 dark:border-gray-700">
+  <div class="max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 md:shadow-2xl">
     <div class="py-12 px-4 sm:py-24 sm:px-6 lg:px-8 ">
       <h2 class="sr-only">Movies</h2>
       <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 cxl:gap-x-8">

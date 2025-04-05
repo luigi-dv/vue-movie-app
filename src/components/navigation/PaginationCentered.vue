@@ -1,23 +1,76 @@
 <template>
-  <nav class="border-t border-gray-200 px-4 flex items-center justify-between max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+  <nav class="border-t border-gray-200 dark:border-gray-800 px-4 flex items-center justify-between max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
     <div class="-mt-px w-0 flex-1 flex">
-      <a href="#" class="border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+      <a v-if="1 < currentPage" :href="'?page=' + previousPage" class="border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
         <ArrowNarrowLeftIcon class="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
         Previous
       </a>
     </div>
     <div class="hidden md:-mt-px md:flex">
-      <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium"> 1 </a>
-      <!-- Current: "border-emerald-500 text-emerald-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-      <a href="#" class="border-emerald-500 text-emerald-600 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium" aria-current="page"> 2 </a>
-      <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium"> 3 </a>
-      <span class="border-transparent text-gray-500 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium"> ... </span>
-      <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium"> 8 </a>
-      <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium"> 9 </a>
-      <a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium"> 10 </a>
+      <a
+          v-if="currentPage !== 1"
+          :key="'page-' + 1"
+          :href="'?page=1'"
+          class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+        First
+      </a>
+      <!--Dots-->
+      <span v-if="currentPage > 3" class="border-transparent text-gray-500 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium"> ... </span>
+      <!--Previous Page-->
+      <a
+         v-if="(currentPage > 2 && previousPage !== totalPrevious && this.totalPages > 3)"
+         :key="'page-' + previousPage"
+         :href="'?page=' + previousPage"
+         class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+        {{ previousPage }}
+      </a>
+      <!--Current Page-->
+      <a
+          v-if="this.currentPage !== this.totalPages"
+         :key="'page-' + currentPage"
+         :href="'?page=' + currentPage"
+         class="border-emerald-500 text-emerald-600 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+        {{ currentPage }}
+      </a>
+      <!--Next Page-->
+      <a
+          v-if="this.nextPage < totalPages"
+          :key="'page-' + this.nextPage"
+          :href="'?page=' + this.nextPage"
+          class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+        {{ nextPage }}
+      </a>
+      <!--Dots-->
+      <span v-if="(totalPages - currentPage) >= 3" class="border-transparent text-gray-500 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium"> ... </span>
+      <!--Previous Second Last Page-->
+      <a
+          v-if="(totalPrevious !== this.currentPage && (totalPages - currentPage) < 2) && this.totalPages > 3"
+          :key="'page-' + (this.totalPrevious - 1)"
+          :href="'?page=' + (this.totalPrevious - 1)"
+          class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+        {{ totalPrevious - 1 }}
+      </a>
+      <!--Previous Last Page-->
+      <a
+          v-if="(totalPrevious !== this.currentPage && (totalPages - currentPage) > 4) || this.currentPage === this.totalPages"
+          :key="'page-' + this.totalPrevious"
+          :href="'?page=' + this.totalPrevious"
+          class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+        {{ totalPrevious }}
+      </a>
+      <!--Last Page-->
+      <a
+          :key="'page-' + totalPages"
+          :href="'?page=' + totalPages"
+          :class="{
+            'border-emerald-500 text-emerald-600 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium': this.checkIfLastPage(),
+            'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium': !this.checkIfLastPage()
+           }">
+       Last
+      </a>
     </div>
     <div class="-mt-px w-0 flex-1 flex justify-end">
-      <a href="#" class="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+      <a v-if="currentPage < totalPages" :href="'?page=' + this.nextPage" class="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
         Next
         <ArrowNarrowRightIcon class="ml-3 h-5 w-5 text-gray-400" aria-hidden="true" />
       </a>
@@ -28,10 +81,44 @@
 <script>
 import { ArrowNarrowLeftIcon, ArrowNarrowRightIcon } from '@heroicons/vue/solid'
 export default {
+  emits: ['changePage'],
+  props: {
+    currentPage: {
+      required: true
+    },
+    totalPages: {
+      required: true
+    }
+  },
+  data() {
+    return {
+      page: '0',
+    }
+  },
   name: 'PaginationCentered',
   components: {
     ArrowNarrowLeftIcon,
     ArrowNarrowRightIcon,
   },
+  methods: {
+    changePage() {
+      this.$emit.changePage()
+    },
+    checkIfLastPage()
+    {
+      return this.currentPage === this.totalPages;
+    }
+  },
+  computed: {
+    nextPage() {
+      return parseInt(this.currentPage) + 1;
+    },
+    previousPage() {
+      return parseInt(this.currentPage) - 1;
+    },
+    totalPrevious() {
+      return parseInt(this.totalPages) - 1;
+    }
+  }
 }
 </script>

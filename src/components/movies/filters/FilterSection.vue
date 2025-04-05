@@ -48,7 +48,7 @@ export default {
 }
 </script>
 <template>
-  <div class="max-w-2xl mx-auto py-5 px-4 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-8 md:shadow-2xl md:border md:border-t-0 md:border-b-0 border-gray-200 dark:border-gray-700">
+  <div class="max-w-2xl mx-auto py-5 px-4 sm:py-10 sm:px-6 lg:max-w-7xl lg:px-8 md:shadow-md">
     <h1 class="py-2 text-xl text-gray-800 dark:text-gray-200">Filters</h1>
     <div class="w-full grid grid-cols-1 md:grid-cols-4 gap-4 ">
       <div>
@@ -66,7 +66,7 @@ export default {
         </div>
       </div>
       <!--Search-->
-      <div class="">
+      <div>
         <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Quick search</label>
         <div class="mt-1 relative flex items-center">
           <input @keyup.enter="changeSearch()" v-model="searchFilter" ref="search" type="text" name="search" id="search" class="dark:bg-gray-800 dark:placeholder:text-gray-200 dark:text-gray-200

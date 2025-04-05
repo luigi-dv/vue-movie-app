@@ -36,11 +36,11 @@ export const useMoviesStore = defineStore("movies",{
                 console.log(error)
             }
         },
-        async fetchMoviesDiscover(language, sortBy, order, page, search) {
+        async fetchMoviesDiscover(language, sortBy, order, page) {
             try {
                 const data = await axios.get('https://api.themoviedb.org/3/discover/movie?api_key='
                     + import.meta.env.VITE_MOVIES_API_KEY +
-                    '&language=' + language + '&sort_by=' + sortBy + '.' + order + '&include_adult=false&include_video=false&page='+ page + '&without_keywords=' + search)
+                    '&language=' + language + '&sort_by=' + sortBy + '.' + order + '&include_adult=false&include_video=false&page='+ page)
                 this.discover = data.data
             }
             catch (error) {

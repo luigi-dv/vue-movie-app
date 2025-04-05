@@ -20,7 +20,7 @@ import {
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue'
-import { MenuIcon, SearchIcon, XIcon } from '@heroicons/vue/outline'
+import { MenuIcon, SearchIcon, XIcon, FilmIcon } from '@heroicons/vue/outline'
 
 export default {
   emits: ['openCommandPalette'],
@@ -40,7 +40,8 @@ export default {
     TransitionRoot,
     MenuIcon,
     SearchIcon,
-    XIcon
+    XIcon,
+    FilmIcon
   },
   setup() {
     const storeMovies = useMoviesStore();
@@ -164,10 +165,10 @@ export default {
                         <div class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                           <img :src="'https://image.tmdb.org/t/p/w500' + item.poster_path" :alt="item.title" class="object-center object-cover" />
                         </div>
-                        <a :href="item.id" class="mt-6 block font-medium text-gray-900 dark:text-gray-200">
+                        <router-link @click="open = false " :to="'/' + category.id + '/' + item.id" class="mt-6 block font-medium text-gray-900 dark:text-gray-200">
                           <span class="absolute z-10 inset-0" aria-hidden="true" />
                           {{ item.title }}
-                        </a>
+                        </router-link>
                         <p aria-hidden="true" class="mt-1 text-gray-500">Watch</p>
                       </div>
                     </div>
@@ -178,9 +179,9 @@ export default {
                     </p>
                     <ul role="list" :aria-labelledby="`${category.id}-${section.id}-heading-mobile`" class="mt-6 flex flex-col space-y-6">
                       <li v-for="item in section.items" :key="item.name" class="flow-root">
-                        <a :href="item.href" class="-m-2 p-2 block text-gray-500 dark:text-gray-400">
+                        <router-link @click="open = false " :to="section.id + item.id" class="-m-2 p-2 block text-gray-500 dark:text-gray-400">
                           {{ item.name }}
-                        </a>
+                        </router-link>
                       </li>
                     </ul>
                   </div>
@@ -190,7 +191,7 @@ export default {
 
             <div class="border-t border-gray-200 dark:border-gray-700 py-6 px-4 space-y-6">
               <div v-for="page in navigation.pages" :key="page.name" class="flow-root">
-                <a :href="page.href" class="-m-2 p-2 block font-medium text-gray-900 dark:text-gray-200">{{ page.name }}</a>
+                <router-link @click="open = false " :to="page.href" class="-m-2 p-2 block font-medium text-gray-900 dark:text-gray-200">{{ page.name }}</router-link>
               </div>
             </div>
           </div>
@@ -216,7 +217,7 @@ export default {
             <div class="ml-4 flex lg:ml-0">
               <router-link to="/">
                 <span class="sr-only">Movies API</span>
-                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=emerald&shade=600" alt="" />
+                <FilmIcon class="h-8 w-8 w-auto text-emerald-600" />
               </router-link>
             </div>
 
@@ -272,7 +273,7 @@ export default {
                     </PopoverPanel>
                   </transition>
                 </Popover>
-                <router-link active-class="text-green-600 hover:text-green-700" v-for="page in navigation.pages" :key="page.name" :to="page.href" class="flex items-center text-sm font-medium">{{ page.name }}</router-link>
+                <router-link active-class="text-emerald-600 hover:text-emerald-700" v-for="page in navigation.pages" :key="page.name" :to="page.href" class="flex items-center text-sm font-medium">{{ page.name }}</router-link>
               </div>
             </PopoverGroup>
 
