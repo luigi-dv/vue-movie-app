@@ -26,7 +26,7 @@
     <div class="hidden bg-gray-100 dark:bg-gray-700 fixed z-50 bottom-0 w-full border-t border-gray-200
       dark:border-gray-800 shadow-2xl flex justify-center h-18 text-gray-900 dark:text-gray-200">
       <router-link v-for="item in navigation.main" :key="item.name" active-class="text-emerald-600 hover:text-emerald-700" :to="item.href"
-                    class="flex flex-grow items-center justify-center p-2">
+                    class="flex flex-grow items-center justify-center">
         <div class="text-center">
             <span class="flex justify-center h-6 text-3xl leading-8">
                   <component v-bind:is="item.icon" class="h-5 w-5"></component>

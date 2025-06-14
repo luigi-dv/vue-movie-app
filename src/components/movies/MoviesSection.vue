@@ -9,10 +9,10 @@ export default {
     <div class="py-12 px-4 sm:py-24 sm:px-6 lg:px-8 ">
       <h2 class="sr-only">Movies</h2>
       <div class="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 cxl:gap-x-8">
-        <router-link v-for="movie in movies.results" :key="movie.id" :to="'/movies/' + movie.id" class="group">
+        <router-link v-for="movie in movies.results" :key="movie.id" :to="'/movies/title/' + movie.id" class="group">
           <div class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
             <img v-if="movie.poster_path" :src="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" :alt="movie.original_title" class="w-full h-full object-center object-cover group-hover:opacity-75" />
-            <img v-else src="../../assets/images/image-not-found.png">
+            <img v-else src="../../../public/images/image-not-found.png">
           </div>
           <h3 class="mt-4 text-regular italic text-gray-700 dark:text-gray-200">
             {{ movie.original_title }}

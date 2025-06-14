@@ -165,7 +165,7 @@ export default {
                         <div class="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                           <img :src="'https://image.tmdb.org/t/p/w500' + item.poster_path" :alt="item.title" class="object-center object-cover" />
                         </div>
-                        <router-link @click="open = false " :to="'/' + category.id + '/' + item.id" class="mt-6 block font-medium text-gray-900 dark:text-gray-200">
+                        <router-link @click="open = false " :to="'/movies/title/' + item.id" class="mt-6 block font-medium text-gray-900 dark:text-gray-200">
                           <span class="absolute z-10 inset-0" aria-hidden="true" />
                           {{ item.title }}
                         </router-link>
@@ -202,7 +202,7 @@ export default {
     <header class="relative bg-gray-50 dark:bg-gray-800">
       <p class="bg-emerald-600 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
         Our latest movie -
-        <router-link class="text-sm font-bold ml-2 " :to="'/movies/' + navigation.latestMovie.id">{{ $filters.str_limit(navigation.latestMovie.title,20) }}</router-link>
+        <router-link class="text-sm font-bold ml-2 " :to="'/movies/title/' + navigation.latestMovie.id">{{ $filters.str_limit(navigation.latestMovie.title,20) }}</router-link>
       </p>
 
       <nav aria-label="Top" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -223,7 +223,7 @@ export default {
 
             <!-- Flyout menus -->
             <PopoverGroup class="hidden lg:ml-8 lg:block lg:self-stretch">
-              <div class="h-full flex space-x-8 text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-400">
+              <div class="h-full flex space-x-8 text-gray-700 dark:text-gray-200 ">
                 <Popover v-for="category in navigation.categories" :key="category.name" class="flex" v-slot="{ open }">
                   <div class="relative flex">
                     <PopoverButton :class="[open ? 'border-emerald-600 text-emerald-600' : 'border-transparent text-gray-700 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-400', 'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-medium border-b-2 -mb-px pt-px']">
@@ -245,7 +245,7 @@ export default {
                                   <div class="aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75">
                                     <img :src="'https://image.tmdb.org/t/p/w500' + item.poster_path" :alt="item.title" class="object-contain" />
                                   </div>
-                                  <router-link @click="close" :to="'/movies/' + item.id" class="mt-6 block font-medium text-gray-900 dark:text-gray-200">
+                                  <router-link @click="close" :to="'/movies/title/' + item.id" class="mt-6 block font-medium text-gray-900 dark:text-gray-200">
                                     <span class="absolute z-10 inset-0" aria-hidden="true" />
                                     {{ item.title }}
                                   </router-link>
@@ -273,7 +273,7 @@ export default {
                     </PopoverPanel>
                   </transition>
                 </Popover>
-                <router-link active-class="text-emerald-600 hover:text-emerald-700" v-for="page in navigation.pages" :key="page.name" :to="page.href" class="flex items-center text-sm font-medium">{{ page.name }}</router-link>
+                <router-link active-class="text-emerald-600 hover:text-emerald-700" v-for="page in navigation.pages" :key="page.name" :to="page.href" class="flex items-center text-sm font-medium hover:text-gray-800 dark:hover:text-gray-400">{{ page.name }}</router-link>
               </div>
             </PopoverGroup>
 

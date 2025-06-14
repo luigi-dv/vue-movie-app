@@ -1,6 +1,7 @@
 <script>
-
+import { SortDescendingIcon, SortAscendingIcon } from "@heroicons/vue/outline"
 export default {
+  components: { SortDescendingIcon,SortAscendingIcon },
   props: {
     orderItems: {
       type: Object,
@@ -58,7 +59,9 @@ export default {
             <option v-for="item in sortByItems" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
           <div class="absolute inset-y-0 right-0 flex items-center">
-            <label for="currency" class="sr-only">Order</label>
+            <label for="order" class="sr-only">Order</label>
+            <SortDescendingIcon v-if="orderFilter === 'desc'" class="h-5 w-5 text-gray-300 dark:text-gray-600"/>
+            <SortAscendingIcon v-else class="h-5 w-5 text-gray-300 dark:text-gray-600"/>
             <select @change="changeOrder()" v-model="orderFilter" id="order" name="order" class="focus:ring-emerald-500 focus:border-emerald-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 dark:text-gray-300 sm:text-sm rounded-md">
               <option v-for="item in orderItems" :key="item.id" :value="item.id">{{ item.name }}</option>
             </select>

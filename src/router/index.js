@@ -4,12 +4,12 @@ import HomeView from '../views/HomeView.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView
   },
   {
     path: '/about',
-    name: 'about',
+    name: 'About',
     // route level code-splitting
     // this generates a separate chunk (About.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -18,13 +18,27 @@ const routes = [
   },
   {
     path: '/movies',
-    name: 'movies',
+    name: 'Movies',
     // route level code-splitting
     // this generates a separate chunk (About.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/MoviesView.vue'),
   },
-
+  {
+    path: '/movies/title/:id',
+    name: 'MovieObject',
+    component: () => import('../views/MovieView.vue'),
+    props: true
+  },
+  {
+    path: '/movies/genres/:id',
+    name: 'MovieGenre',
+    // route level code-splitting
+    // this generates a separate chunk (About.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('../views/MoviesView.vue'),
+    props: true
+  },
   // And finally the default route, when none of the above matches:
   { path: '/404',
     name: 'PageNotExist',

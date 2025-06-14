@@ -6,7 +6,7 @@
         <p class="mt-5 text-xl text-gray-600 dark:text-gray-400">There are millions of incredible movies waiting for you. <br> <span class="text-2xl text-emerald-600">Explore now</span></p>
       </div>
       <div class="mt-10 w-full max-w-xs">
-        <label for="currency" class="block text-base font-medium text-gray-700 dark:text-gray-300">Language</label>
+        <label for="language" class="block text-base font-medium text-gray-700 dark:text-gray-300">Language</label>
         <div class="mt-1.5 relative">
           <select v-model="this.language" @change="changeLanguage()" id="language-input" name="language-input"
                   class="appearance-none block w-full bg-none bg-gray-200 dark:bg-gray-700 border
@@ -27,6 +27,7 @@
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 
 export default {
+  name: 'MoviesHeaderSection',
   emits: ['changeLanguage'],
   props: {
     languages: {

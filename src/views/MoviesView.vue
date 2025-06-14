@@ -16,7 +16,7 @@
 /**
  * Vue Router
  */
-  import { useRoute } from 'vue-router'
+  import { useRouter, useRoute } from 'vue-router'
 /**
  * Stores
  *  Movie [Main Store in View]
@@ -55,7 +55,7 @@
       name: "Español (Latinoamérica)",
     },
     {
-      id: 'zh-CHS',
+      id: 'zh',
       name: "Chinese (Simplified)",
     },
     {
@@ -139,6 +139,7 @@ export default {
   setup() {
     const storeMovies = useMoviesStore();
     const route = useRoute();
+    const router = useRouter();
 
     const { fetchMoviesDiscover } = useMoviesStore();
 
@@ -147,12 +148,7 @@ export default {
         fetchMovieQuery.page = route.query.page;
       }
       else{
-        if(route.query.page === ''){
-          fetchMovieQuery.page = 1
-        }
-        else{
-          fetchMovieQuery.page = 1
-        }
+          router.push({ path: 'movies', query: { page: 1 }})
       }
       // Movies (language, sortBy, Order, Page)
       fetchMoviesDiscover(fetchMovieQuery.language, fetchMovieQuery.sortBy, fetchMovieQuery.order, fetchMovieQuery.page);
@@ -161,6 +157,7 @@ export default {
     return {
       storeMovies,
       route,
+      router,
       languages,
       fetchMovieQuery,
       sortByItems,
@@ -186,7 +183,8 @@ export default {
       this.search = value;
       this.fetchMoviesDiscover(this.language, this.sortBy, this.order, this.page);
     },
-    changePage() {
+    changePage(emitPage) {
+     this.page = emitPage;
       this.fetchMoviesDiscover(this.language, this.sortBy, this.order, this.page);
     },
     getTotalPages()
@@ -200,7 +198,7 @@ export default {
       }
     },
     getCurrentPage() {
-      return parseInt(fetchMovieQuery.page);
+      return parseInt(this.page);
     }
   },
   computed: {
@@ -217,8 +215,6 @@ export default {
     <MoviesSection :movies="this.movies"/>
     <PaginationCentered :currentPage="this.getCurrentPage()"
                         :totalPages="this.getTotalPages()"
-      @changePage="changePage"
-    />
+                        @changePage="changePage"/>
   </main>
-
 </template>
