@@ -1,8 +1,6 @@
 <script>
 //Import movies store
 import { useMoviesStore } from "../../stores/movies";
-import { useSeriesStore } from "../../stores/series";
-
 
 import { ref, onMounted } from 'vue'
 import {
@@ -20,7 +18,7 @@ import {
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue'
-import { MenuIcon, SearchIcon, XIcon, FilmIcon } from '@heroicons/vue/outline'
+import { MenuIcon, XIcon, FilmIcon } from '@heroicons/vue/outline'
 
 export default {
   emits: ['openCommandPalette'],
@@ -39,31 +37,28 @@ export default {
     TransitionChild,
     TransitionRoot,
     MenuIcon,
-    SearchIcon,
     XIcon,
     FilmIcon
   },
   setup() {
     const storeMovies = useMoviesStore();
-    const storeSeries = useSeriesStore();
-
     const { fetchMoviesGenres, fetchTrendingMovieWeek, fetchMoviesLatest } = useMoviesStore();
-    const { fetchSeriesGenres, fetchTrendingSeriesWeek } = useSeriesStore();
     const open = ref(false)
     onMounted(() => {
       // movies
       fetchMoviesGenres();
       fetchMoviesLatest();
       fetchTrendingMovieWeek();
-      // series
-      fetchSeriesGenres();
-      fetchTrendingSeriesWeek();
-    })
+    });
 
     return {
       open,
       storeMovies,
-      storeSeries
+    }
+  },
+  data(){
+    return {
+      showCMD: false
     }
   },
   computed: {
@@ -92,29 +87,6 @@ export default {
                 items: this.storeMovies.getGenres
               },
 
-            ],
-          },
-          {
-            id: 'series',
-            name: 'Series',
-            featured: this.storeSeries.getTrending,
-            sections: [
-              {
-                id: '/series/',
-                name: 'Links',
-                items: [
-                  { name: 'All Series', id: '' },
-                  { name: 'Popular', id: 'popular' },
-                  { name: 'Now Playing', id: 'now-playing' },
-                  { name: 'Upcoming', id: 'upcoming' },
-                  { name: 'Top Rated', id: 'top-rated' },
-                ],
-              },
-              {
-                id: '/series/genres/',
-                name: 'Genres',
-                items: this.storeSeries.getGenres,
-              },
             ],
           },
         ],
@@ -280,10 +252,11 @@ export default {
             <div class="ml-auto flex items-center">
               <!-- Search -->
               <div class="flex lg:ml-6">
-                <a @click="$emit('openCommandPalette')" class="p-2 text-gray-400 hover:text-emerald-600 cursor-pointer">
-                  <span class="sr-only">Search</span>
-                  <SearchIcon class="w-6 h-6" aria-hidden="true" />
-                </a>
+                <div class="hidden md:block flex items-center group py-1.5 pr-1.5 px-2 rounded-md hover:bg-emerald-700
+                hover:text-white cursor-pointer">
+                  <span class="text-gray-900 dark:text-gray-400 group-hover:text-white mr-2">Search</span>
+                  <kbd class="inline-flex items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400"> ⌘K </kbd>
+                </div>
               </div>
             </div>
           </div>

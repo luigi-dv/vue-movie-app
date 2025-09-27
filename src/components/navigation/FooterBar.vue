@@ -46,7 +46,6 @@ const navigation = {
   main: [
     { name: 'Home', href: '/' , icon: HomeIcon },
     { name: 'Movies', href: '/movies', icon: FilmIcon },
-    { name: 'Series', href: '/series', icon: HomeIcon },
     { name: 'About', href: '/about', icon: HomeIcon },
   ],
   poweredBy: {  link:'https://luigelo.ldvloper.com', username:'luigi-dv' },

@@ -1,6 +1,7 @@
 <script setup>
 import NavigationBar from "@/components/navigation/NavigationBar.vue";
 import FooterBar from "@/components/navigation/FooterBar.vue";
+import SearchCmd from "./components/navigation/command-palettes/SearchCmd.vue";
 </script>
 
 <template>
@@ -19,6 +20,7 @@ import FooterBar from "@/components/navigation/FooterBar.vue";
     <footer>
       <FooterBar></FooterBar>
     </footer>
+    <SearchCmd />
   </div>
 </template>
 

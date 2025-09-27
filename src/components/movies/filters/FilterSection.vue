@@ -34,16 +34,6 @@ export default {
   mounted () {
     this.sortByFilter = this.sortByItems[0].id;
     this.orderFilter = this.orderItems[0].id;
-    let keysPressed = {};
-    window.addEventListener('keydown', (e) => {
-      keysPressed[e.key] = true;
-      if (keysPressed['Meta'] && e.key === 'k' ) {
-        this.$refs.search.focus()
-      }
-    });
-    document.addEventListener('keyup', (e) => {
-      delete keysPressed[e.key];
-    });
   },
 
 }
@@ -68,7 +58,7 @@ export default {
           </div>
         </div>
       </div>
-      <!--Search-->
+      <!--Search
       <div>
         <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Quick search</label>
         <div class="mt-1 relative flex items-center">
@@ -79,6 +69,7 @@ export default {
           </div>
         </div>
       </div>
+      -->
     </div>
   </div>
 </template>
