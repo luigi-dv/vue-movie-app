@@ -10,6 +10,14 @@ The Vue Movies API is a SPA that consumes TMDb API
 npm install
 ```
 
+### Environment Variables
+
+Copy the example file and add your own [TMDb API key](https://www.themoviedb.org/settings/api):
+
+```sh
+cp .env.example .env
+```
+
 ### Compile and Hot-Reload for Development
 
 ```sh
