@@ -2,6 +2,7 @@
  * TMDb proxy (Vercel Serverless Function)
  * Forwards /api/tmdb/<path>?<query> to the TMDb API and appends the API key
  * on the server, so the key never reaches the browser bundle.
+ * The <path> is passed in as ?path=... by the rewrite in vercel.json.
  */
 export default async function handler(req, res) {
     if (req.method !== 'GET') {
@@ -9,8 +10,8 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' })
     }
 
-    const { path = [], ...query } = req.query
-    const segments = Array.isArray(path) ? path : [path]
+    const { path = '', ...query } = req.query
+    const segments = [].concat(path).join('/').split('/').filter(Boolean)
     const version = process.env.TMDB_API_VERSION || '3'
 
     const url = new URL(`https://api.themoviedb.org/${version}/${segments.map(encodeURIComponent).join('/')}`)

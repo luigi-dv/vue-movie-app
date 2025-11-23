@@ -20,7 +20,7 @@ cp .env.example .env
 
 The key is never bundled into the client. The app calls `/api/tmdb/*`, and the key is appended server-side:
 - **Development:** by the Vite dev server proxy (`vite.config.js`)
-- **Production:** by the Vercel serverless function in `api/tmdb/[...path].js`. Set `TMDB_API_KEY` in your Vercel project's environment variables.
+- **Production:** by the Vercel serverless function in `api/tmdb.js`. Set `TMDB_API_KEY` in your Vercel project's environment variables.
 
 ### Compile and Hot-Reload for Development
 

@@ -117,7 +117,7 @@ export const useMoviesStore = defineStore("movies",{
                 console.log(error)
             }
         },
-        async fetchMoviesDiscover(language, sortBy, order, page) {
+        async fetchMoviesDiscover(language = 'en-US', sortBy = 'popularity', order = 'desc', page = 1) {
             try {
                 const data = await axios.get('/api/tmdb/discover/movie?language=' + language + '&sort_by=' + sortBy + '.' + order + '&include_adult=false&include_video=false&page='+ page)
                 this.movies = data.data
