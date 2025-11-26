@@ -14,8 +14,6 @@ dist-ssr
 coverage
 *.local
 
-/cypress/videos/
-/cypress/screenshots/
 
 # Editor directories and files
 .vscode/*
@@ -34,3 +32,11 @@ coverage
 .env
 .env.*
 !.env.example
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# Design tooling
+/.taste-skill/
