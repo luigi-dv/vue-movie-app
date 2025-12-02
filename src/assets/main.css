@@ -1,0 +1,230 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+/*
+ * Design tokens. One ground, one ink, one accent (the Ldvloper emerald),
+ * surfaces separated by tone steps rather than lines or shadows.
+ * Dark values are swapped in under prefers-color-scheme.
+ */
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-ground: #f5f6f4;
+  --color-surface: #e9ece8;
+  --color-surface-2: #dde1dc;
+  --color-ink: #0c1210;
+  --color-soft: #47524d;
+  --color-accent: #047857;
+  --color-accent-hover: #065f46;
+  --color-on-accent: #ffffff;
+  --color-field: #053d2e;
+  --color-on-field: #ecfdf5;
+  --color-field-soft: #a7f3d0;
+  --color-paper: #ffffff;
+
+  /* Five type steps: small, body, lead, title, display */
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.45;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.55;
+  --text-lead: 1.375rem;
+  --text-lead--line-height: 1.35;
+  --text-title: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  --text-title--line-height: 1.04;
+  --text-title--letter-spacing: -0.03em;
+  --text-display: clamp(2.75rem, 1rem + 7vw, 7rem);
+  --text-display--line-height: 0.94;
+  --text-display--letter-spacing: -0.045em;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-ground: #0b0f0d;
+    --color-surface: #151b18;
+    --color-surface-2: #1f2723;
+    --color-ink: #eef2f0;
+    --color-soft: #a4b0ab;
+    --color-accent: #34d399;
+    --color-accent-hover: #6ee7b7;
+    --color-on-accent: #04261b;
+    --color-field: #064e3b;
+    --color-paper: #121815;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-ground text-ink font-sans text-body antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img {
+    color: transparent;
+  }
+}
+
+@layer components {
+  /* The one button shape of the app: flat, square, one fill. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 min-h-12 font-semibold text-body select-none;
+    transition: background-color 180ms ease, color 180ms ease, transform 140ms var(--ease-out);
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-primary {
+    @apply bg-accent text-on-accent hover:bg-accent-hover;
+  }
+  .btn-quiet {
+    @apply bg-surface text-ink hover:bg-surface-2;
+  }
+  .btn-on-field {
+    @apply bg-on-field text-field hover:bg-white;
+  }
+
+  .link {
+    @apply text-accent underline decoration-2 underline-offset-4 hover:decoration-transparent;
+    transition: text-decoration-color 180ms ease;
+  }
+
+  .field-select {
+    @apply min-h-12 bg-surface text-ink pl-4 pr-10 text-body font-medium appearance-none cursor-pointer hover:bg-surface-2;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23808a86'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.25rem;
+  }
+
+  .page-x {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/*
+ * Motion. Hidden states only apply under html.js (set inline in index.html),
+ * so content is never lost if scripts fail, and reduced motion drops all travel.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 80ms);
+  }
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js [data-rise] {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: rise 800ms var(--ease-out) forwards;
+    animation-delay: calc(var(--i, 0) * 90ms + 100ms);
+  }
+
+  .js .lines [data-line] {
+    display: block;
+    transform: translateY(105%);
+    animation: line-up 900ms var(--ease-out) forwards;
+    animation-delay: calc(var(--i, 0) * 110ms + 80ms);
+  }
+
+  .poster-zoom img {
+    transition: transform 600ms var(--ease-soft);
+  }
+  .poster-zoom:hover img {
+    transform: scale(1.04);
+  }
+
+  .drift {
+    animation: drift 24s var(--ease-in-out) infinite alternate;
+  }
+}
+
+.lines .line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+@keyframes rise {
+  to { opacity: 1; transform: none; }
+}
+@keyframes line-up {
+  to { transform: none; }
+}
+@keyframes drift {
+  from { transform: scale(1.02) translate3d(0, 0, 0); }
+  to { transform: scale(1.1) translate3d(-1.5%, -1%, 0); }
+}
+
+/* Skeleton shimmer for loading states: a tone step that pulses, never a gradient. */
+@keyframes pulse-tone {
+  50% { opacity: 0.55; }
+}
+.skeleton {
+  background: var(--color-surface);
+  animation: pulse-tone 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
+
+/* Route transition */
+.route-enter-active {
+  transition: opacity 260ms var(--ease-out), transform 260ms var(--ease-out);
+}
+.route-leave-active {
+  transition: opacity 160ms ease;
+}
+.route-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.route-leave-to {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .route-enter-from { transform: none; }
+}

@@ -1,37 +1,18 @@
 <script setup>
-import NavigationBar from "@/components/navigation/NavigationBar.vue";
-import FooterBar from "@/components/navigation/FooterBar.vue";
-import SearchCmd from "./components/navigation/command-palettes/SearchCmd.vue";
+import SiteHeader from '@/components/layout/SiteHeader.vue'
+import SiteFooter from '@/components/layout/SiteFooter.vue'
+import SearchPalette from '@/components/search/SearchPalette.vue'
 </script>
 
 <template>
-  <div>
-    <header>
-      <NavigationBar />
-    </header>
-    <div>
-      <router-view v-slot="{ Component }">
-        <!-- Use any custom transition and fallback to `fade` -->
-        <transition name="fade" mode="out-in">
-          <component :is="Component" :key="$route.path"></component>
-        </transition>
-      </router-view>
-    </div>
-    <footer>
-      <FooterBar></FooterBar>
-    </footer>
-    <SearchCmd />
-  </div>
+  <SiteHeader />
+  <main id="main" tabindex="-1" class="focus:outline-none">
+    <RouterView v-slot="{ Component, route }">
+      <Transition name="route" mode="out-in">
+        <component :is="Component" :key="route.path" />
+      </Transition>
+    </RouterView>
+  </main>
+  <SiteFooter />
+  <SearchPalette />
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

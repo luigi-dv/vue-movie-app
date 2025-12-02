@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" class="dark:bg-gray-900">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no, user-scalable=0"/>
-    <title>Movie APP | VueJS</title>
-    <meta name="description" content="The Movie APP is a VueJS based SPA that delivery movies and series content obtained via API.">
-    <meta name="subject" content="The Movie API | Powered by Ldvloper">
-    <meta name="keywords" content="Movie, API, SPA, VueJS, Series, Blockbuster, Cinema"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f6f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0f0d" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <script>document.documentElement.classList.add('js')</script>
+    <title>Movie App · Every film, one keystroke away</title>
+    <meta name="description" content="Search, filter and save films from the full TMDb catalogue, with trailers and twelve languages. A Vue 3 case study by Luigelo Davila.">
     <meta name="author" content="Luigelo Davila">
 
     <!-- ==============================================
@@ -33,16 +35,19 @@
     <!-- ==============================================
     Social
   =============================================== -->
-    <meta property='og:title' content='Movie APP is a VueJS based SPA that delivery movies and series content.'/>
-    <meta property='og:image' content="http://movieapp.ldvloper.com/social-preview.png"/>
+    <meta property="og:title" content="Movie App: every film, one keystroke away" />
+    <meta property="og:image" content="https://movieapp.ldvloper.com/social-preview.png" />
     <meta property="og:image:secure_url" content="https://movieapp.ldvloper.com/social-preview.png" />
     <meta property="og:image:type" content="image/png" />
-    <meta property='og:description' content='The Movie APP is a VueJS based SPA that delivery movies and series content obtained via API. Created by Ldvloper'/>
-    <meta property='og:url' content='https//movieapp.ldvloper.com'/>
+    <meta property="og:description" content="Search, filter and save films from the full TMDb catalogue. A Vue 3 case study by Luigelo Davila." />
+    <meta property="og:url" content="https://movieapp.ldvloper.com" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://image.tmdb.org" crossorigin />
 
   </head>
   <body>
-    <div id="app" class="selection:bg-emerald-600"></div>
+    <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
