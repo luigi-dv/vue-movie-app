@@ -1,13 +1,22 @@
 <script setup>
-import TheWelcome from '@/components/TheWelcome.vue'
-import TechnologiesSection from "@/components/home/TechnologiesSection.vue";
-import StatsSection from "@/components/home/StatsSection.vue";
+import HomeHero from '@/components/home/HomeHero.vue'
+import HomeShowcase from '@/components/home/HomeShowcase.vue'
+import HomeProgramme from '@/components/home/HomeProgramme.vue'
+import HomeFeatures from '@/components/home/HomeFeatures.vue'
+import HomeNumbers from '@/components/home/HomeNumbers.vue'
+import HomeLetter from '@/components/home/HomeLetter.vue'
+import { usePageTitle } from '@/composables/usePageTitle'
+
+usePageTitle(null)
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-    <TechnologiesSection />
-    <StatsSection />
-  </main>
+  <div>
+    <HomeHero />
+    <HomeShowcase />
+    <HomeProgramme />
+    <HomeFeatures />
+    <HomeNumbers />
+    <HomeLetter />
+  </div>
 </template>
