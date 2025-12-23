@@ -26,7 +26,7 @@ export default async function handler(req, res) {
         res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400')
         return res.status(response.status).json(data)
     }
-    catch (error) {
+    catch {
         return res.status(502).json({ error: 'Failed to reach TMDb' })
     }
 }
