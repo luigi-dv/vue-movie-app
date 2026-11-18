@@ -2,6 +2,7 @@
 import SiteHeader from '@/components/layout/SiteHeader.vue'
 import SiteFooter from '@/components/layout/SiteFooter.vue'
 import SearchPalette from '@/components/search/SearchPalette.vue'
+import { Analytics } from '@vercel/analytics/vue'
 </script>
 
 <template>
@@ -15,4 +16,5 @@ import SearchPalette from '@/components/search/SearchPalette.vue'
   </main>
   <SiteFooter />
   <SearchPalette />
+  <Analytics />
 </template>

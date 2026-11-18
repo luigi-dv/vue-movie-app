@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import handler from '../api/tmdb.js'
+import handler, { CACHE_OK, CACHE_NOT_FOUND, CACHE_NONE } from '../api/tmdb.js'
 
 function mockRes() {
   const res = { headers: {}, statusCode: 200, body: undefined }
@@ -30,10 +30,30 @@ describe('api/tmdb serverless proxy', () => {
     expect(res.body).toEqual({ id: 603 })
   })
 
-  it('caches successful answers at the edge', async () => {
+  it('caches successful answers in the browser and at the edge', async () => {
     const res = mockRes()
     await handler({ method: 'GET', query: { path: 'movie/603' } }, res)
-    expect(res.headers['Cache-Control']).toBe('s-maxage=3600, stale-while-revalidate=86400')
+    expect(res.headers['Cache-Control']).toBe(CACHE_OK)
+  })
+
+  it('caches 404s briefly and never caches other errors', async () => {
+    fetch.mockResolvedValueOnce(new Response('{}', { status: 404 }))
+    const missing = mockRes()
+    await handler({ method: 'GET', query: { path: 'movie/0' } }, missing)
+    expect(missing.headers['Cache-Control']).toBe(CACHE_NOT_FOUND)
+
+    fetch.mockResolvedValueOnce(new Response('{}', { status: 429 }))
+    const limited = mockRes()
+    await handler({ method: 'GET', query: { path: 'movie/603' } }, limited)
+    expect(limited.statusCode).toBe(429)
+    expect(limited.headers['Cache-Control']).toBe(CACHE_NONE)
+  })
+
+  it('refuses TMDb resources the app does not use', async () => {
+    const res = mockRes()
+    await handler({ method: 'GET', query: { path: 'account/1/lists' } }, res)
+    expect(res.statusCode).toBe(404)
+    expect(fetch).not.toHaveBeenCalled()
   })
 
   it('accepts path segments as an array', async () => {
