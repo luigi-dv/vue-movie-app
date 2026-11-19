@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import handler, { CACHE_OK, CACHE_NOT_FOUND, CACHE_NONE } from '../api/tmdb.js'
+import handler from '../api/tmdb.js'
+import { CACHE_OK, CACHE_NOT_FOUND, CACHE_NONE } from '../api/constants.js'
 
 function mockRes() {
   const res = { headers: {}, statusCode: 200, body: undefined }
