@@ -1,0 +1,6 @@
+# Film and person pages mirror the whole TMDb catalogue and link to each other endlessly.
+# Crawling them costs a function invocation per page and adds nothing TMDb doesn't already publish.
+User-agent: *
+Disallow: /api/
+Disallow: /movies/title/
+Disallow: /people/

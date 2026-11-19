@@ -3,6 +3,7 @@ import SiteHeader from '@/components/layout/SiteHeader.vue'
 import SiteFooter from '@/components/layout/SiteFooter.vue'
 import SearchPalette from '@/components/search/SearchPalette.vue'
 import { Analytics } from '@vercel/analytics/vue'
+import { dropBotEvents } from '@/lib/analytics'
 </script>
 
 <template>
@@ -16,5 +17,5 @@ import { Analytics } from '@vercel/analytics/vue'
   </main>
   <SiteFooter />
   <SearchPalette />
-  <Analytics />
+  <Analytics :before-send="dropBotEvents" />
 </template>
