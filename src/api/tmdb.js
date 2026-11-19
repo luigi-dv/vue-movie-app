@@ -1,3 +1,5 @@
+import { IMAGE_BASE } from '@/api/constants.js'
+
 /**
  * Thin client for the TMDb proxy at /api/tmdb.
  * The API key is appended server-side (api/tmdb.js in production, the Vite proxy in development),
@@ -55,8 +57,6 @@ export async function tmdb(path, params = {}, { signal } = {}) {
   cache.set(url, { data, time: Date.now() })
   return data
 }
-
-const IMAGE_BASE = 'https://image.tmdb.org/t/p'
 
 /** Builds a TMDb image URL, or null when the resource has no image. */
 export function imageUrl(path, size = 'w500') {
